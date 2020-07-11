@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="{% static 'src/dist/css/style.min.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="my-4">
+            <form method="POST" action="/onSubmit/">
+                {% csrf_token %}
+                {% for error in form.non_field_errors %}
+                    <p>{{error}}</p>
+                {% endfor %}
+                <div class = "form group col-md-10" >
+                    <div class="input-group p-1">
+                        <label class="col-md-3 text-md-right text-sm-left" for="location">*Location</label>
+                        <select class="custom-select mr-sm-2 col-md-3" name="location">
+                            <option value="Coperate Headoffice">Coperate Headoffice</option>
+                            <option value="Down Town">Down Town</option>
+                            <option value="Muncipal office">Muncipal office</option>
+                        </select>
+                    </div>
+                    <div class="input-group p-1">
+                        <label class="col-md-3 text-md-right text-sm-left" for="description">*Incident Description</label>
+                        <textarea class="form-control" rows="2" placeholder="Text Here..." name="description"></textarea>
+                    </div>
+                    <div class="input-group p-1">
+                        <label class="col-md-3 text-md-right text-sm-left">*Date and Time of Incident</label>
+                        <input type="date" class="form-control col-md-3"  id="currentDate" name="date">
+                        <input type="time" class="form-control col-md-3 ml-1"  id="currentTime" name="time">
+                    </div>
+                    <div class="input-group p-1">
+                        <label class="col-md-3 text-md-right text-sm-left">Incident Location</label>
+                        <textarea class="form-control" rows="2" placeholder="Text Here..." name="incident_location"></textarea>
+                    </div>
+                    <div class="input-group p-1">
+                        <label class="col-md-3 text-md-right text-sm-left">*Intial Severity</label>
+                        <select class="custom-select mr-sm-2 col-md-3" name="intial_severity">
+                            <option value="Moderate">Moderate</option>
+                            <option value="High">High</option>
+                            <option value="Critical">Critical</option>
+                        </select>
+                    </div>
+                    <div class="input-group p-1">
+                        <label class="col-md-3 text-md-right text-sm-left">Suspected Cause</label>
+                        <textarea class="form-control" rows="2" placeholder="Text Here..." name="suspected_cause"></textarea>
+                    </div>
+                    <div class="input-group p-1">
+                        <label class="col-md-3 text-md-right text-sm-left">Immediate Actions Taken</label>
+                        <textarea class="form-control" rows="2" placeholder="Text Here..." name="action_taken"></textarea>
+                    </div>
+                    <div class="input-group p-1">
+                        <label class="col-md-3 text-md-right text-sm-left">Sub Incident Types</label>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="chck1" name="checks" value="Environmental Incident" >
+                                <label class="custom-control-label" for="chck1">Environmental Incident</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="chck2" name="checks" value="Injury/Illiness">
+                                <label class="custom-control-label" for="chck2">Injury/Illiness</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="chck3" name="checks" value="Property Damage">
+                                <label class="custom-control-label" for="chck3">Property Damage</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="chck4" name="checks" value="Vehicle">
+                                <label class="custom-control-label" for="chck4">Vehicle</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mx-2 mt-4">
+                    <button type="submit" class="btn waves-effect waves-light btn-dark col-md-4" >Submit</button>
+                </div>
+            </form>
+        </div>
+    </body>
+    <script>
+        var date = new Date();
+        var currentDate = date.toISOString().slice(0,10);
+        var currentTime = date.getHours() + ':' + date.getMinutes();
+        document.getElementById('currentDate').value = currentDate;
+        document.getElementById('currentTime').value = currentTime;
+    </script>
+</html>
